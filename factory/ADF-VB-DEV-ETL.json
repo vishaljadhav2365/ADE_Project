@@ -1,0 +1,9 @@
+{
+	"name": "ADF-VB-DEV-ETL",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "b815ef1b-72b4-4738-8795-2e4c4babc4dc",
+		"tenantId": "8fa6a06c-e766-498f-be16-8633827e563a"
+	}
+}

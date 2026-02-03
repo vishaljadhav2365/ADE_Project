@@ -1,0 +1,14 @@
+{
+	"name": "LS_DS_RESTAPI_TO_PARQUET",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Rest API Raw Source Side",
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://retoolapi.dev/Nhh8lw/data",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}

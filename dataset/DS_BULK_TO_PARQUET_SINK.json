@@ -1,0 +1,21 @@
+{
+	"name": "DS_BULK_TO_PARQUET_SINK",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_DS_BULK_TO_PARQUET_SINK",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "bulkupload",
+				"fileSystem": "input"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,13 @@
+{
+	"name": "DS_RESTAPI_TO_PARQUET",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_DS_RESTAPI_TO_PARQUET",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

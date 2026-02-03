@@ -1,0 +1,13 @@
+{
+	"name": "LS_DS_JSON_TO_PARQUET",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Raw Storage Side of JSON File",
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://adlsrawstg.dfs.core.windows.net/",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEUxQjJFQzNCLTg2NzktNDYxMy1BREE3LUMzNUZDNUQyQUQ5Q185NTc2MDk2Zi00MWIwLTQxNjEtYjMyZC1iNWMwOGU0ZWQ1YTEiDQp9"
+		}
+	}
+}
