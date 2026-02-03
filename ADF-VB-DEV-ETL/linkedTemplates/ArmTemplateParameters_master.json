@@ -1,0 +1,84 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ADF-VB-DEV-ETL"
+		},
+		"LS_DS_BULK_TO_PARQUET_accountKey": {
+			"value": ""
+		},
+		"LS_DS_BULK_TO_PARQUET_SINK_accountKey": {
+			"value": ""
+		},
+		"LS_DS_CSV_TO_PARQUET_accountKey": {
+			"value": ""
+		},
+		"LS_DS_CSV_TO_PARQUET_SINK_accountKey": {
+			"value": ""
+		},
+		"LS_DS_EXCEL_TO_PARQUET_accountKey": {
+			"value": ""
+		},
+		"LS_DS_EXCEL_TO_PARQUET_SINK_accountKey": {
+			"value": ""
+		},
+		"LS_DS_JSON_TO_PARQUET_accountKey": {
+			"value": ""
+		},
+		"LS_DS_JSON_TO_PARQUET_SINK_accountKey": {
+			"value": ""
+		},
+		"LS_DS_RESTAPI_TO_PARQUET_SINK_accountKey": {
+			"value": ""
+		},
+		"LS_DS_SFTP_TO_PARQUET_accountKey": {
+			"value": ""
+		},
+		"LS_DS_SFTP_TO_PARQUET_SINK_accountKey": {
+			"value": ""
+		},
+		"LS_DS_BULK_TO_PARQUET_properties_typeProperties_url": {
+			"value": "https://adlsrawstg.dfs.core.windows.net/"
+		},
+		"LS_DS_BULK_TO_PARQUET_SINK_properties_typeProperties_url": {
+			"value": "https://adlssourcestg.dfs.core.windows.net/"
+		},
+		"LS_DS_CSV_TO_PARQUET_properties_typeProperties_url": {
+			"value": "https://adlsrawstg.dfs.core.windows.net/"
+		},
+		"LS_DS_CSV_TO_PARQUET_SINK_properties_typeProperties_url": {
+			"value": "https://adlssourcestg.dfs.core.windows.net/"
+		},
+		"LS_DS_EXCEL_TO_PARQUET_properties_typeProperties_url": {
+			"value": "https://adlsrawstg.dfs.core.windows.net/"
+		},
+		"LS_DS_EXCEL_TO_PARQUET_SINK_properties_typeProperties_url": {
+			"value": "https://adlssourcestg.dfs.core.windows.net/"
+		},
+		"LS_DS_JSON_TO_PARQUET_properties_typeProperties_url": {
+			"value": "https://adlsrawstg.dfs.core.windows.net/"
+		},
+		"LS_DS_JSON_TO_PARQUET_SINK_properties_typeProperties_url": {
+			"value": "https://adlssourcestg.dfs.core.windows.net/"
+		},
+		"LS_DS_RESTAPI_TO_PARQUET_properties_typeProperties_url": {
+			"value": "https://retoolapi.dev/Nhh8lw/data"
+		},
+		"LS_DS_RESTAPI_TO_PARQUET_SINK_properties_typeProperties_url": {
+			"value": "https://adlssourcestg.dfs.core.windows.net/"
+		},
+		"LS_DS_SFTP_TO_PARQUET_properties_typeProperties_url": {
+			"value": "https://adlsrawstg.dfs.core.windows.net/"
+		},
+		"LS_DS_SFTP_TO_PARQUET_SINK_properties_typeProperties_url": {
+			"value": "https://adlssourcestg.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
