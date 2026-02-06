@@ -51,6 +51,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_DS_SFTP_TO_PARQUET_SINK'"
 		},
+		"LS_DS_SQL_Parquet_SINK_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_DS_SQL_Parquet_SINK'"
+		},
 		"LS_DS_BULK_TO_PARQUET_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlsrawstg.dfs.core.windows.net/"
@@ -96,6 +100,10 @@
 			"defaultValue": "https://adlsrawstg.dfs.core.windows.net/"
 		},
 		"LS_DS_SFTP_TO_PARQUET_SINK_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlssourcestg.dfs.core.windows.net/"
+		},
+		"LS_DS_SQL_Parquet_SINK_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlssourcestg.dfs.core.windows.net/"
 		}
@@ -313,6 +321,33 @@
 					"accountKey": {
 						"type": "SecureString",
 						"value": "[parameters('LS_DS_SFTP_TO_PARQUET_SINK_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SelfHostedintegrationRuntime')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_DS_SQL_Parquet_SINK')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_DS_SQL_Parquet_SINK_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('LS_DS_SQL_Parquet_SINK_accountKey')]"
 					}
 				}
 			},
@@ -547,140 +582,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_DS_EXCEL_TO_PARQUET_SINK')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_JSON_TO_PARQUET')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_DS_JSON_TO_PARQUET",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "jsontest.json",
-						"folderPath": "json",
-						"fileSystem": "input"
-					}
-				},
-				"schema": {
-					"type": "object",
-					"properties": {
-						"_id": {
-							"type": "string"
-						},
-						"index": {
-							"type": "integer"
-						},
-						"guid": {
-							"type": "string"
-						},
-						"isActive": {
-							"type": "boolean"
-						},
-						"balance": {
-							"type": "string"
-						},
-						"picture": {
-							"type": "string"
-						},
-						"age": {
-							"type": "integer"
-						},
-						"eyeColor": {
-							"type": "string"
-						},
-						"name": {
-							"type": "string"
-						},
-						"gender": {
-							"type": "string"
-						},
-						"company": {
-							"type": "string"
-						},
-						"email": {
-							"type": "string"
-						},
-						"phone": {
-							"type": "string"
-						},
-						"address": {
-							"type": "string"
-						},
-						"about": {
-							"type": "string"
-						},
-						"registered": {
-							"type": "string"
-						},
-						"latitude": {
-							"type": "number"
-						},
-						"longitude": {
-							"type": "number"
-						},
-						"tags": {
-							"type": "array",
-							"items": {
-								"type": "string"
-							}
-						},
-						"friends": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"id": {
-										"type": "integer"
-									},
-									"name": {
-										"type": "string"
-									}
-								}
-							}
-						},
-						"greeting": {
-							"type": "string"
-						},
-						"favoriteFruit": {
-							"type": "string"
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_DS_JSON_TO_PARQUET')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_JSON_TO_PARQUET_SINK')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_DS_JSON_TO_PARQUET_SINK",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "json",
-						"fileSystem": "input"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_DS_JSON_TO_PARQUET_SINK')]"
 			]
 		}
 	]
