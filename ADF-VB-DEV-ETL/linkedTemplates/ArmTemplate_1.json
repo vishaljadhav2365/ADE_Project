@@ -1069,7 +1069,7 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"filename": {
-													"value": "@concat(item().TABLE_SCHEMA,'.',item().TABLE_NAME)",
+													"value": "@concat(item().TABLE_SCHEMA,'.',item().TABLE_NAME,'.parquet')",
 													"type": "Expression"
 												}
 											}
