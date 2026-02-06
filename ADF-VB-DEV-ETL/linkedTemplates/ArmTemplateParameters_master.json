@@ -38,13 +38,13 @@
 		"LS_DS_SFTP_TO_PARQUET_SINK_accountKey": {
 			"value": ""
 		},
-		"LS_DS_SqlServerTable_password": {
+		"LS_DS_SNOWFLAKE_PARQ_password": {
 			"value": ""
 		},
 		"LS_DS_SQL_Parquet_SINK_accountKey": {
 			"value": ""
 		},
-		"LS_DS_MULTI_SQL_VIA_LKP_BLOB_SINK_connectionString": {
+		"LS_DS_SqlServerTable_password": {
 			"value": ""
 		},
 		"LS_DS_BULK_TO_PARQUET_properties_typeProperties_url": {
@@ -71,6 +71,9 @@
 		"LS_DS_JSON_TO_PARQUET_SINK_properties_typeProperties_url": {
 			"value": "https://adlssourcestg.dfs.core.windows.net/"
 		},
+		"LS_DS_MULTI_SQL_VIA_LKP_BLOB_SINK_sasUri": {
+			"value": ""
+		},
 		"LS_DS_RESTAPI_TO_PARQUET_properties_typeProperties_url": {
 			"value": "https://retoolapi.dev/Nhh8lw/data"
 		},
@@ -83,6 +86,12 @@
 		"LS_DS_SFTP_TO_PARQUET_SINK_properties_typeProperties_url": {
 			"value": "https://adlssourcestg.dfs.core.windows.net/"
 		},
+		"LS_DS_SNOWFLAKE_PARQ_properties_typeProperties_database": {
+			"value": "DBAZURESNOW"
+		},
+		"LS_DS_SQL_Parquet_SINK_properties_typeProperties_url": {
+			"value": "https://adlssourcestg.dfs.core.windows.net/"
+		},
 		"LS_DS_SqlServerTable_properties_typeProperties_server": {
 			"value": "DESKTOP-VVKK1H5\\SQLEXPRESS"
 		},
@@ -91,9 +100,6 @@
 		},
 		"LS_DS_SqlServerTable_properties_typeProperties_userName": {
 			"value": "Vishal"
-		},
-		"LS_DS_SQL_Parquet_SINK_properties_typeProperties_url": {
-			"value": "https://adlssourcestg.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"value": ""
