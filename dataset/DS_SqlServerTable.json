@@ -1,0 +1,49 @@
+{
+	"name": "DS_SqlServerTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_DS_SqlServerTable",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "\"order_id\"",
+				"type": "varchar"
+			},
+			{
+				"name": "\"customer_id\"",
+				"type": "varchar"
+			},
+			{
+				"name": "\"order_status\"",
+				"type": "varchar"
+			},
+			{
+				"name": "\"order_purchase_timestamp\"",
+				"type": "varchar"
+			},
+			{
+				"name": "\"order_approved_at\"",
+				"type": "varchar"
+			},
+			{
+				"name": "\"order_delivered_carrier_date\"",
+				"type": "varchar"
+			},
+			{
+				"name": "\"order_delivered_customer_date\"",
+				"type": "varchar"
+			},
+			{
+				"name": "\"order_estimated_delivery_date\"",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "olist_orders_dataset"
+		}
+	}
+}
