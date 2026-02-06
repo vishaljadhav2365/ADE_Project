@@ -1,0 +1,15 @@
+{
+	"name": "LS_DS_MULTI_SQL_VIA_LKP_BLOB_SINK",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"containerUri": "https://storageblobetldev.blob.core.windows.net/input",
+			"authenticationType": "Anonymous"
+		},
+		"connectVia": {
+			"referenceName": "SelfHostedintegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
