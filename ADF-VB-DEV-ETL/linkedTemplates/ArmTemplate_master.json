@@ -7,6 +7,18 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "ADF-VB-DEV-ETL"
 		},
+		"LS_DS_AZSQL_DB_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_DS_AZSQL_DB'"
+		},
+		"LS_DS_AZSQL_SRCDB_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_DS_AZSQL_SRCDB'"
+		},
+		"LS_DS_AZSQL_SRC_DB_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_DS_AZSQL_SRC_DB'"
+		},
 		"LS_DS_BULK_TO_PARQUET_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_DS_BULK_TO_PARQUET'"
@@ -62,6 +74,42 @@
 		"LS_DS_SqlServerTable_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_DS_SqlServerTable'"
+		},
+		"LS_DS_AZSQL_DB_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sql-srvr-vb-dev-etl.database.windows.net"
+		},
+		"LS_DS_AZSQL_DB_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sql-db-vb-dev"
+		},
+		"LS_DS_AZSQL_DB_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "dev-etl-sql"
+		},
+		"LS_DS_AZSQL_SRCDB_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sql-srvr-vb-dev-etl.database.windows.net"
+		},
+		"LS_DS_AZSQL_SRCDB_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sql-db-vb-dev"
+		},
+		"LS_DS_AZSQL_SRCDB_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "dev-etl-sql"
+		},
+		"LS_DS_AZSQL_SRC_DB_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sql-srvr-vb-dev-etl.database.windows.net"
+		},
+		"LS_DS_AZSQL_SRC_DB_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sql-db-vb-dev"
+		},
+		"LS_DS_AZSQL_SRC_DB_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "dev-etl-sql"
 		},
 		"LS_DS_BULK_TO_PARQUET_properties_typeProperties_url": {
 			"type": "string",
@@ -162,6 +210,15 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"LS_DS_AZSQL_DB_password": {
+						"value": "[parameters('LS_DS_AZSQL_DB_password')]"
+					},
+					"LS_DS_AZSQL_SRCDB_password": {
+						"value": "[parameters('LS_DS_AZSQL_SRCDB_password')]"
+					},
+					"LS_DS_AZSQL_SRC_DB_password": {
+						"value": "[parameters('LS_DS_AZSQL_SRC_DB_password')]"
+					},
 					"LS_DS_BULK_TO_PARQUET_accountKey": {
 						"value": "[parameters('LS_DS_BULK_TO_PARQUET_accountKey')]"
 					},
@@ -200,6 +257,33 @@
 					},
 					"LS_DS_SQL_Parquet_SINK_accountKey": {
 						"value": "[parameters('LS_DS_SQL_Parquet_SINK_accountKey')]"
+					},
+					"LS_DS_AZSQL_DB_properties_typeProperties_server": {
+						"value": "[parameters('LS_DS_AZSQL_DB_properties_typeProperties_server')]"
+					},
+					"LS_DS_AZSQL_DB_properties_typeProperties_database": {
+						"value": "[parameters('LS_DS_AZSQL_DB_properties_typeProperties_database')]"
+					},
+					"LS_DS_AZSQL_DB_properties_typeProperties_userName": {
+						"value": "[parameters('LS_DS_AZSQL_DB_properties_typeProperties_userName')]"
+					},
+					"LS_DS_AZSQL_SRCDB_properties_typeProperties_server": {
+						"value": "[parameters('LS_DS_AZSQL_SRCDB_properties_typeProperties_server')]"
+					},
+					"LS_DS_AZSQL_SRCDB_properties_typeProperties_database": {
+						"value": "[parameters('LS_DS_AZSQL_SRCDB_properties_typeProperties_database')]"
+					},
+					"LS_DS_AZSQL_SRCDB_properties_typeProperties_userName": {
+						"value": "[parameters('LS_DS_AZSQL_SRCDB_properties_typeProperties_userName')]"
+					},
+					"LS_DS_AZSQL_SRC_DB_properties_typeProperties_server": {
+						"value": "[parameters('LS_DS_AZSQL_SRC_DB_properties_typeProperties_server')]"
+					},
+					"LS_DS_AZSQL_SRC_DB_properties_typeProperties_database": {
+						"value": "[parameters('LS_DS_AZSQL_SRC_DB_properties_typeProperties_database')]"
+					},
+					"LS_DS_AZSQL_SRC_DB_properties_typeProperties_userName": {
+						"value": "[parameters('LS_DS_AZSQL_SRC_DB_properties_typeProperties_userName')]"
 					},
 					"LS_DS_BULK_TO_PARQUET_properties_typeProperties_url": {
 						"value": "[parameters('LS_DS_BULK_TO_PARQUET_properties_typeProperties_url')]"
