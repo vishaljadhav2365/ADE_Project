@@ -61,7 +61,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "PL_CSV",
+											"referenceName": "PL_SWITCH_CSV_EXCEL",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true
@@ -70,10 +70,32 @@
 							]
 						},
 						{
-							"value": "aws"
+							"value": "aws",
+							"activities": [
+								{
+									"name": "Wait1",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 1
+									}
+								}
+							]
 						},
 						{
-							"value": "gcp"
+							"value": "gcp",
+							"activities": [
+								{
+									"name": "Wait2",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 1
+									}
+								}
+							]
 						}
 					]
 				}
