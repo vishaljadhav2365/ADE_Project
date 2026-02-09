@@ -1,0 +1,12 @@
+{
+	"name": "DS_AZSQL_SRCDB",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_DS_AZSQL_SRCDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
