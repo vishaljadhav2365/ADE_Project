@@ -5,13 +5,16 @@
 		"factoryName": {
 			"value": "ADF-VB-DEV-ETL"
 		},
+		"LS_DS_AZSQLDB_CSV_META_password": {
+			"value": ""
+		},
 		"LS_DS_AZSQL_DB_password": {
 			"value": ""
 		},
-		"LS_DS_AZSQL_SRCDB_password": {
+		"LS_DS_AZSQL_DB_CSVEXCEL_password": {
 			"value": ""
 		},
-		"LS_DS_AZSQL_SRC_DB_password": {
+		"LS_DS_AZSQL_SRCDB_password": {
 			"value": ""
 		},
 		"LS_DS_BULK_TO_PARQUET_accountKey": {
@@ -56,6 +59,15 @@
 		"LS_DS_SqlServerTable_password": {
 			"value": ""
 		},
+		"LS_DS_AZSQLDB_CSV_META_properties_typeProperties_server": {
+			"value": "sql-srvr-vb-dev-etl.database.windows.net"
+		},
+		"LS_DS_AZSQLDB_CSV_META_properties_typeProperties_database": {
+			"value": "sql-db-vb-dev"
+		},
+		"LS_DS_AZSQLDB_CSV_META_properties_typeProperties_userName": {
+			"value": "dev-etl-sql"
+		},
 		"LS_DS_AZSQL_DB_properties_typeProperties_server": {
 			"value": "sql-srvr-vb-dev-etl.database.windows.net"
 		},
@@ -65,6 +77,15 @@
 		"LS_DS_AZSQL_DB_properties_typeProperties_userName": {
 			"value": "dev-etl-sql"
 		},
+		"LS_DS_AZSQL_DB_CSVEXCEL_properties_typeProperties_server": {
+			"value": "sql-srvr-vb-dev-etl.database.windows.net"
+		},
+		"LS_DS_AZSQL_DB_CSVEXCEL_properties_typeProperties_database": {
+			"value": "sql-db-vb-dev"
+		},
+		"LS_DS_AZSQL_DB_CSVEXCEL_properties_typeProperties_userName": {
+			"value": "dev-etl-sql"
+		},
 		"LS_DS_AZSQL_SRCDB_properties_typeProperties_server": {
 			"value": "sql-srvr-vb-dev-etl.database.windows.net"
 		},
@@ -72,15 +93,6 @@
 			"value": "sql-db-vb-dev"
 		},
 		"LS_DS_AZSQL_SRCDB_properties_typeProperties_userName": {
-			"value": "dev-etl-sql"
-		},
-		"LS_DS_AZSQL_SRC_DB_properties_typeProperties_server": {
-			"value": "sql-srvr-vb-dev-etl.database.windows.net"
-		},
-		"LS_DS_AZSQL_SRC_DB_properties_typeProperties_database": {
-			"value": "sql-db-vb-dev"
-		},
-		"LS_DS_AZSQL_SRC_DB_properties_typeProperties_userName": {
 			"value": "dev-etl-sql"
 		},
 		"LS_DS_BULK_TO_PARQUET_properties_typeProperties_url": {
