@@ -64,7 +64,13 @@
 											"referenceName": "PL_SWITCH_CSV_EXCEL",
 											"type": "PipelineReference"
 										},
-										"waitOnCompletion": true
+										"waitOnCompletion": true,
+										"parameters": {
+											"Trigger": {
+												"value": "@pipeline().parameters.Trigger",
+												"type": "Expression"
+											}
+										}
 									}
 								}
 							]
