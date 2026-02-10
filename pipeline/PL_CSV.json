@@ -59,6 +59,16 @@
 				]
 			}
 		],
+		"parameters": {
+			"Trigger": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"Mapping": {
+				"type": "String"
+			}
+		},
 		"annotations": [],
 		"lastPublishTime": "2026-02-03T07:07:37Z"
 	},
