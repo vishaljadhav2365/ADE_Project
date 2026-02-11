@@ -375,6 +375,18 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"LS_DS_SqlServerTable_password": {
+						"value": "[parameters('LS_DS_SqlServerTable_password')]"
+					},
+					"LS_DS_SqlServerTable_properties_typeProperties_server": {
+						"value": "[parameters('LS_DS_SqlServerTable_properties_typeProperties_server')]"
+					},
+					"LS_DS_SqlServerTable_properties_typeProperties_database": {
+						"value": "[parameters('LS_DS_SqlServerTable_properties_typeProperties_database')]"
+					},
+					"LS_DS_SqlServerTable_properties_typeProperties_userName": {
+						"value": "[parameters('LS_DS_SqlServerTable_properties_typeProperties_userName')]"
 					}
 				}
 			},
@@ -395,18 +407,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"LS_DS_SqlServerTable_password": {
-						"value": "[parameters('LS_DS_SqlServerTable_password')]"
-					},
-					"LS_DS_SqlServerTable_properties_typeProperties_server": {
-						"value": "[parameters('LS_DS_SqlServerTable_properties_typeProperties_server')]"
-					},
-					"LS_DS_SqlServerTable_properties_typeProperties_database": {
-						"value": "[parameters('LS_DS_SqlServerTable_properties_typeProperties_database')]"
-					},
-					"LS_DS_SqlServerTable_properties_typeProperties_userName": {
-						"value": "[parameters('LS_DS_SqlServerTable_properties_typeProperties_userName')]"
 					}
 				}
 			},
