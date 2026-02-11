@@ -2729,8 +2729,7 @@
 					"password": {
 						"type": "SecureString",
 						"value": "[parameters('LS_DS_SNOWFLAKE_PARQ_password')]"
-					},
-					"useUtcTimestamps": false
+					}
 				},
 				"version": "1.1"
 			},
