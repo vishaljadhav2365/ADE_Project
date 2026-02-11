@@ -67,9 +67,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_DS_SFTP_TO_PARQUET_SINK'"
 		},
-		"LS_DS_SNOWFLAKE_PARQ_password": {
+		"LS_DS_SNOWFLAKE_TO_BLOB_SRC_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_DS_SNOWFLAKE_PARQ'"
+			"metadata": "Secure string for 'password' of 'LS_DS_SNOWFLAKE_TO_BLOB_SRC'"
 		},
 		"LS_DS_SQL_Parquet_SINK_accountKey": {
 			"type": "secureString",
@@ -155,10 +155,6 @@
 			"type": "string",
 			"defaultValue": "https://adlssourcestg.dfs.core.windows.net/"
 		},
-		"LS_DS_MULTI_SQL_VIA_LKP_BLOB_SINK_sasUri": {
-			"type": "secureString",
-			"metadata": "Secure string for 'sasUri' of 'LS_DS_MULTI_SQL_VIA_LKP_BLOB_SINK'"
-		},
 		"LS_DS_RESTAPI_TO_PARQUET_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://retoolapi.dev/Nhh8lw/data"
@@ -175,7 +171,11 @@
 			"type": "string",
 			"defaultValue": "https://adlssourcestg.dfs.core.windows.net/"
 		},
-		"LS_DS_SNOWFLAKE_PARQ_properties_typeProperties_database": {
+		"LS_DS_SNOWFLAKE_TO_BLOB_SINK_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'LS_DS_SNOWFLAKE_TO_BLOB_SINK'"
+		},
+		"LS_DS_SNOWFLAKE_TO_BLOB_SRC_properties_typeProperties_database": {
 			"type": "string",
 			"defaultValue": "DBAZURESNOW"
 		},
@@ -421,19 +421,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LS_DS_MULTI_SQL_VIA_LKP_BLOB_SINK')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"sasUri": "[parameters('LS_DS_MULTI_SQL_VIA_LKP_BLOB_SINK_sasUri')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/LS_DS_RESTAPI_TO_PARQUET')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -504,7 +491,20 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LS_DS_SNOWFLAKE_PARQ')]",
+			"name": "[concat(parameters('factoryName'), '/LS_DS_SNOWFLAKE_TO_BLOB_SINK')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"sasUri": "[parameters('LS_DS_SNOWFLAKE_TO_BLOB_SINK_sasUri')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_DS_SNOWFLAKE_TO_BLOB_SRC')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -514,12 +514,13 @@
 					"authenticationType": "Basic",
 					"accountIdentifier": "MJNAVIW-YC23704",
 					"user": "vishaljadhav2365",
-					"database": "[parameters('LS_DS_SNOWFLAKE_PARQ_properties_typeProperties_database')]",
+					"database": "[parameters('LS_DS_SNOWFLAKE_TO_BLOB_SRC_properties_typeProperties_database')]",
 					"warehouse": "COMPUTE_WH",
 					"password": {
 						"type": "SecureString",
-						"value": "[parameters('LS_DS_SNOWFLAKE_PARQ_password')]"
-					}
+						"value": "[parameters('LS_DS_SNOWFLAKE_TO_BLOB_SRC_password')]"
+					},
+					"useUtcTimestamps": false
 				},
 				"version": "1.1"
 			},
