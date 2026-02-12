@@ -1,5 +1,5 @@
 {
-	"name": "PL_SWITCH_CSV_EXCEL",
+	"name": "PL4_SWITCH_CSV_EXCEL",
 	"properties": {
 		"activities": [
 			{
@@ -79,12 +79,25 @@
 							"value": "excel",
 							"activities": [
 								{
-									"name": "Wait1",
-									"type": "Wait",
+									"name": "EXEC_EXCEL",
+									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
-										"waitTimeInSeconds": 1
+										"pipeline": {
+											"referenceName": "PL_EXCEL",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"Trigger": {
+												"value": "@pipeline().parameters.Trigger",
+												"type": "Expression"
+											}
+										}
 									}
 								}
 							]
