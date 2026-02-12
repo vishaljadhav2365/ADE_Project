@@ -59,6 +59,9 @@
 		"LS_DS_SqlServerTable_password": {
 			"value": ""
 		},
+		"LS_DS_AZSQLDB_EXCEL_META_password": {
+			"value": ""
+		},
 		"LS_DS_AZSQLDB_CSV_META_properties_typeProperties_server": {
 			"value": "sql-srvr-vb-dev-etl.database.windows.net"
 		},
@@ -148,6 +151,15 @@
 		},
 		"LS_DS_SqlServerTable_properties_typeProperties_userName": {
 			"value": "Vishal"
+		},
+		"LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_server": {
+			"value": "sql-srvr-vb-dev-etl.database.windows.net"
+		},
+		"LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_database": {
+			"value": "sql-db-vb-dev"
+		},
+		"LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_userName": {
+			"value": "dev-etl-sql"
 		},
 		"containerUri": {
 			"value": ""

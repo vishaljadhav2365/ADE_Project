@@ -7,27 +7,49 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "ADF-VB-DEV-ETL"
 		},
-		"LS_DS_SqlServerTable_password": {
+		"LS_DS_AZSQLDB_EXCEL_META_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_DS_SqlServerTable'"
+			"metadata": "Secure string for 'password' of 'LS_DS_AZSQLDB_EXCEL_META'"
 		},
-		"LS_DS_SqlServerTable_properties_typeProperties_server": {
+		"LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_server": {
 			"type": "string",
-			"defaultValue": "DESKTOP-VVKK1H5\\SQLEXPRESS"
+			"defaultValue": "sql-srvr-vb-dev-etl.database.windows.net"
 		},
-		"LS_DS_SqlServerTable_properties_typeProperties_database": {
+		"LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_database": {
 			"type": "string",
-			"defaultValue": "ADEProject"
+			"defaultValue": "sql-db-vb-dev"
 		},
-		"LS_DS_SqlServerTable_properties_typeProperties_userName": {
+		"LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_userName": {
 			"type": "string",
-			"defaultValue": "Vishal"
+			"defaultValue": "dev-etl-sql"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_DS_AZSQLDB_EXCEL_META')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_server')]",
+					"database": "[parameters('LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('LS_DS_AZSQLDB_EXCEL_META_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DS_AZSQLDB_CSV_META')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -665,32 +687,6 @@
 					"compressionCodec": "snappy"
 				},
 				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_DS_SqlServerTable')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"server": "[parameters('LS_DS_SqlServerTable_properties_typeProperties_server')]",
-					"database": "[parameters('LS_DS_SqlServerTable_properties_typeProperties_database')]",
-					"encrypt": "optional",
-					"trustServerCertificate": false,
-					"authenticationType": "SQL",
-					"userName": "[parameters('LS_DS_SqlServerTable_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('LS_DS_SqlServerTable_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "SelfHostedintegrationRuntime",
-					"type": "IntegrationRuntimeReference"
-				}
 			},
 			"dependsOn": []
 		}
