@@ -7,21 +7,13 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "ADF-VB-DEV-ETL"
 		},
-		"LS_DS_AZSQLDB_EXCEL_META_password": {
+		"LS_DS_SQL_Parquet_SINK_accountKey": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_DS_AZSQLDB_EXCEL_META'"
+			"metadata": "Secure string for 'accountKey' of 'LS_DS_SQL_Parquet_SINK'"
 		},
-		"LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_server": {
+		"LS_DS_SQL_Parquet_SINK_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "sql-srvr-vb-dev-etl.database.windows.net"
-		},
-		"LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "sql-db-vb-dev"
-		},
-		"LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "dev-etl-sql"
+			"defaultValue": "https://adlssourcestg.dfs.core.windows.net/"
 		}
 	},
 	"variables": {
@@ -29,24 +21,29 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/LS_DS_AZSQLDB_EXCEL_META')]",
+			"name": "[concat(parameters('factoryName'), '/LS_DS_SQL_Parquet_SINK')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"type": "AzureSqlDatabase",
+				"type": "AzureBlobFS",
 				"typeProperties": {
-					"server": "[parameters('LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_server')]",
-					"database": "[parameters('LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_database')]",
-					"encrypt": "mandatory",
-					"trustServerCertificate": false,
-					"authenticationType": "SQL",
-					"userName": "[parameters('LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_userName')]",
-					"password": {
+					"url": "[parameters('LS_DS_SQL_Parquet_SINK_properties_typeProperties_url')]",
+					"accountKey": {
 						"type": "SecureString",
-						"value": "[parameters('LS_DS_AZSQLDB_EXCEL_META_password')]"
+						"value": "[parameters('LS_DS_SQL_Parquet_SINK_accountKey')]"
 					}
 				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SelfHostedintegrationRuntime')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
 			},
 			"dependsOn": []
 		},
@@ -57,6 +54,22 @@
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "LS_DS_AZSQLDB_CSV_META",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_AZSQLDB_EXCEL_META')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_DS_AZSQLDB_EXCEL_META",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -592,97 +605,6 @@
 							"type": "Expression"
 						},
 						"container": "input"
-					},
-					"compressionCodec": "snappy"
-				},
-				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_SNOWFLAKE_TO_BLOB_SRC')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_DS_SNOWFLAKE_TO_BLOB_SRC",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "SnowflakeV2Table",
-				"schema": [
-					{
-						"name": "INDEX",
-						"type": "NUMBER",
-						"precision": 38,
-						"scale": 0
-					},
-					{
-						"name": "ORDER_ID",
-						"type": "VARCHAR",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "ORDER_ITEM_ID",
-						"type": "NUMBER",
-						"precision": 38,
-						"scale": 0
-					},
-					{
-						"name": "PRODUCT_ID",
-						"type": "VARCHAR",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "SELLER_ID",
-						"type": "VARCHAR",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "SHIPPING_LIMIT_DATE",
-						"type": "TIMESTAMP_NTZ",
-						"precision": 0,
-						"scale": 9
-					},
-					{
-						"name": "PRICE",
-						"type": "NUMBER",
-						"precision": 10,
-						"scale": 2
-					},
-					{
-						"name": "FREIGHT_VALUE",
-						"type": "NUMBER",
-						"precision": 10,
-						"scale": 2
-					}
-				],
-				"typeProperties": {
-					"schema": "AZURE_INTEGRATION",
-					"table": "ORDER_ITEMS_DATASET"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQL_Parquet_SINK')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_DS_SQL_Parquet_SINK",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Parquet",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "sql",
-						"fileSystem": "input"
 					},
 					"compressionCodec": "snappy"
 				},

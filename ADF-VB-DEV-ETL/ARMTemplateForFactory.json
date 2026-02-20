@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_DS_AZSQLDB_CSV_META'"
 		},
+		"LS_DS_AZSQLDB_EXCEL_META_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_DS_AZSQLDB_EXCEL_META'"
+		},
 		"LS_DS_AZSQL_DB_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_DS_AZSQL_DB'"
@@ -22,6 +26,10 @@
 		"LS_DS_AZSQL_SRCDB_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_DS_AZSQL_SRCDB'"
+		},
+		"LS_DS_AZ_SQL_DB_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_DS_AZ_SQL_DB'"
 		},
 		"LS_DS_BULK_TO_PARQUET_accountKey": {
 			"type": "secureString",
@@ -79,10 +87,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_DS_SqlServerTable'"
 		},
-		"LS_DS_AZSQLDB_EXCEL_META_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_DS_AZSQLDB_EXCEL_META'"
-		},
 		"LS_DS_AZSQLDB_CSV_META_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "sql-srvr-vb-dev-etl.database.windows.net"
@@ -92,6 +96,18 @@
 			"defaultValue": "sql-db-vb-dev"
 		},
 		"LS_DS_AZSQLDB_CSV_META_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "dev-etl-sql"
+		},
+		"LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sql-srvr-vb-dev-etl.database.windows.net"
+		},
+		"LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sql-db-vb-dev"
+		},
+		"LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "dev-etl-sql"
 		},
@@ -128,6 +144,18 @@
 			"defaultValue": "sql-db-vb-dev"
 		},
 		"LS_DS_AZSQL_SRCDB_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "dev-etl-sql"
+		},
+		"LS_DS_AZ_SQL_DB_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sql-srvr-vb-dev-etl.database.windows.net"
+		},
+		"LS_DS_AZ_SQL_DB_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sql-db-vb-dev"
+		},
+		"LS_DS_AZ_SQL_DB_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "dev-etl-sql"
 		},
@@ -202,18 +230,6 @@
 		"LS_DS_SqlServerTable_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "Vishal"
-		},
-		"LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "sql-srvr-vb-dev-etl.database.windows.net"
-		},
-		"LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "sql-db-vb-dev"
-		},
-		"LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "dev-etl-sql"
 		}
 	},
 	"variables": {
@@ -286,7 +302,8 @@
 						"type": "String"
 					}
 				},
-				"annotations": []
+				"annotations": [],
+				"lastPublishTime": "2026-02-10T09:29:33Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/PL2_RAW_DATA')]"
@@ -417,7 +434,8 @@
 						"type": "String"
 					}
 				},
-				"annotations": []
+				"annotations": [],
+				"lastPublishTime": "2026-02-10T09:29:33Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_AZSQL_DB')]",
@@ -544,11 +562,140 @@
 						"type": "string"
 					}
 				},
-				"annotations": []
+				"annotations": [],
+				"lastPublishTime": "2026-02-12T04:18:07Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_AZSQL_SRCDB')]",
 				"[concat(variables('factoryId'), '/pipelines/PL4_SWITCH_CSV_EXCEL')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PL4_SWITCH_CSV_EXCEL')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "LKUP_GET_FILETYPE_CSV_EXCEL",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT DISTINCT L4_switch_type \nFROM dbo.vb_tbl_job a\nJOIN dbo.vb_tbl_trigger b ON a.trigger_id = b.trigger_id\nWHERE b.trigger_name = '@{pipeline().parameters.Trigger}'",
+									"type": "Expression"
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "DS_AZSQL_DB_CSVEXCEL",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						}
+					},
+					{
+						"name": "SWITCH_CSV_EXCEL",
+						"type": "Switch",
+						"dependsOn": [
+							{
+								"activity": "LKUP_GET_FILETYPE_CSV_EXCEL",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"on": {
+								"value": "@activity('LKUP_GET_FILETYPE_CSV_EXCEL').output.firstRow.L4_switch_type",
+								"type": "Expression"
+							},
+							"cases": [
+								{
+									"value": "csv",
+									"activities": [
+										{
+											"name": "Execute Pipeline1",
+											"type": "ExecutePipeline",
+											"dependsOn": [],
+											"policy": {
+												"secureInput": false
+											},
+											"userProperties": [],
+											"typeProperties": {
+												"pipeline": {
+													"referenceName": "PL_CSV",
+													"type": "PipelineReference"
+												},
+												"waitOnCompletion": true,
+												"parameters": {
+													"Trigger": {
+														"value": "@pipeline().parameters.Trigger",
+														"type": "Expression"
+													}
+												}
+											}
+										}
+									]
+								},
+								{
+									"value": "excel",
+									"activities": [
+										{
+											"name": "EXEC_EXCEL",
+											"type": "ExecutePipeline",
+											"dependsOn": [],
+											"policy": {
+												"secureInput": false
+											},
+											"userProperties": [],
+											"typeProperties": {
+												"pipeline": {
+													"referenceName": "PL_EXCEL",
+													"type": "PipelineReference"
+												},
+												"waitOnCompletion": true,
+												"parameters": {
+													"Trigger": {
+														"value": "@pipeline().parameters.Trigger",
+														"type": "Expression"
+													}
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"Trigger": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"lastPublishTime": "2026-02-12T04:18:07Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_AZSQL_DB_CSVEXCEL')]",
+				"[concat(variables('factoryId'), '/pipelines/PL_CSV')]",
+				"[concat(variables('factoryId'), '/pipelines/PL_EXCEL')]"
 			]
 		},
 		{
@@ -911,7 +1058,7 @@
 					}
 				},
 				"annotations": [],
-				"lastPublishTime": "2026-02-03T07:07:37Z"
+				"lastPublishTime": "2026-02-10T09:29:32Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_CSV_TO_PARQUET')]",
@@ -1173,7 +1320,7 @@
 					}
 				},
 				"annotations": [],
-				"lastPublishTime": "2026-02-03T10:14:34Z"
+				"lastPublishTime": "2026-02-12T04:18:07Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_EXCEL_TO_PARQUET')]",
@@ -1447,7 +1594,8 @@
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
-				"annotations": []
+				"annotations": [],
+				"lastPublishTime": "2026-02-11T16:42:03Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_SNOWFLAKE_TO_BLOB_SRC')]",
@@ -1516,138 +1664,12 @@
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
-				"annotations": []
+				"annotations": [],
+				"lastPublishTime": "2026-02-06T10:56:54Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_SqlServerTable')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SQL_Parquet_SINK')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PL4_SWITCH_CSV_EXCEL')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "LKUP_GET_FILETYPE_CSV_EXCEL",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT DISTINCT L4_switch_type \nFROM dbo.vb_tbl_job a\nJOIN dbo.vb_tbl_trigger b ON a.trigger_id = b.trigger_id\nWHERE b.trigger_name = '@{pipeline().parameters.Trigger}'",
-									"type": "Expression"
-								},
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "DS_AZSQL_DB_CSVEXCEL",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						}
-					},
-					{
-						"name": "SWITCH_CSV_EXCEL",
-						"type": "Switch",
-						"dependsOn": [
-							{
-								"activity": "LKUP_GET_FILETYPE_CSV_EXCEL",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"on": {
-								"value": "@activity('LKUP_GET_FILETYPE_CSV_EXCEL').output.firstRow.L4_switch_type",
-								"type": "Expression"
-							},
-							"cases": [
-								{
-									"value": "csv",
-									"activities": [
-										{
-											"name": "Execute Pipeline1",
-											"type": "ExecutePipeline",
-											"dependsOn": [],
-											"policy": {
-												"secureInput": false
-											},
-											"userProperties": [],
-											"typeProperties": {
-												"pipeline": {
-													"referenceName": "PL_CSV",
-													"type": "PipelineReference"
-												},
-												"waitOnCompletion": true,
-												"parameters": {
-													"Trigger": {
-														"value": "@pipeline().parameters.Trigger",
-														"type": "Expression"
-													}
-												}
-											}
-										}
-									]
-								},
-								{
-									"value": "excel",
-									"activities": [
-										{
-											"name": "EXEC_EXCEL",
-											"type": "ExecutePipeline",
-											"dependsOn": [],
-											"policy": {
-												"secureInput": false
-											},
-											"userProperties": [],
-											"typeProperties": {
-												"pipeline": {
-													"referenceName": "PL_EXCEL",
-													"type": "PipelineReference"
-												},
-												"waitOnCompletion": true,
-												"parameters": {
-													"Trigger": {
-														"value": "@pipeline().parameters.Trigger",
-														"type": "Expression"
-													}
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"parameters": {
-					"Trigger": {
-						"type": "string"
-					}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_AZSQL_DB_CSVEXCEL')]",
-				"[concat(variables('factoryId'), '/pipelines/PL_CSV')]",
-				"[concat(variables('factoryId'), '/pipelines/PL_EXCEL')]"
 			]
 		},
 		{
@@ -1666,6 +1688,24 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_DS_AZSQLDB_CSV_META')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_AZSQLDB_EXCEL_META')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_DS_AZSQLDB_EXCEL_META",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_DS_AZSQLDB_EXCEL_META')]"
 			]
 		},
 		{
@@ -2440,6 +2480,28 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/LS_DS_AZSQLDB_EXCEL_META')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_server')]",
+					"database": "[parameters('LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('LS_DS_AZSQLDB_EXCEL_META_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/LS_DS_AZSQL_DB')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -2500,6 +2562,28 @@
 					"password": {
 						"type": "SecureString",
 						"value": "[parameters('LS_DS_AZSQL_SRCDB_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_DS_AZ_SQL_DB')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('LS_DS_AZ_SQL_DB_properties_typeProperties_server')]",
+					"database": "[parameters('LS_DS_AZ_SQL_DB_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('LS_DS_AZ_SQL_DB_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('LS_DS_AZ_SQL_DB_password')]"
 					}
 				}
 			},
@@ -2809,46 +2893,6 @@
 				"typeProperties": {}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_DS_AZSQLDB_EXCEL_META')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"server": "[parameters('LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_server')]",
-					"database": "[parameters('LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_database')]",
-					"encrypt": "mandatory",
-					"trustServerCertificate": false,
-					"authenticationType": "SQL",
-					"userName": "[parameters('LS_DS_AZSQLDB_EXCEL_META_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('LS_DS_AZSQLDB_EXCEL_META_password')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_AZSQLDB_EXCEL_META')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_DS_AZSQLDB_EXCEL_META",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_DS_AZSQLDB_EXCEL_META')]"
-			]
 		}
 	]
 }
