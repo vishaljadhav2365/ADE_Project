@@ -61,5 +61,6 @@
 			"schema": "AZURE_INTEGRATION",
 			"table": "ORDER_ITEMS_DATASET"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
 }
